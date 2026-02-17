@@ -205,6 +205,49 @@
                             <p className="text-slate-600 font-medium">A standardized workflow for collaborative content management.</p>
                         </header>
 
+
+                        <section className="mt-12 bg-white rounded-2xl border border-slate-200 p-8 shadow-sm">
+                            <h3 className="text-lg font-bold mb-6 flex items-center gap-2">
+                                <Icons.Layout className="text-blue-600" /> Maintenance & Governance
+                            </h3>
+                            <div className="grid md:grid-cols-2 gap-6">
+
+                                <div className="md:col-span-2 flex gap-4 p-4 rounded-xl bg-blue-50 border border-blue-100">
+                                    <div className="bg-blue-600 text-white p-2 rounded-lg h-fit">
+                                        <Icons.List size={20} />
+                                    </div>
+                                    <div>
+                                        <h4 className="font-bold text-sm mb-1">How to verify folder location</h4>
+                                        <p className="text-xs text-slate-600 leading-relaxed">
+                                            Switch your dashboard to <strong>List View</strong>. Hovering over the <strong>File Location</strong> column for any course should show <span className="font-bold text-blue-700">Team {'>'} [Folder Name]</span>. Only courses for strictly private use should remain as "Private".
+                                        </p>
+                                    </div>
+                                </div>
+                                <div className="flex gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100">
+                                    <div className="bg-blue-100 text-blue-700 p-2 rounded-lg h-fit">
+                                        <Icons.CheckCircle size={20} />
+                                    </div>
+                                    <div>
+                                        <h4 className="font-bold text-sm mb-1">Standard Workflow</h4>
+                                        <p className="text-xs text-slate-600 leading-relaxed">
+                                            Every time you create or work on a course, check that it is part of a <strong>Team folder</strong>. If it is sitting in your Private tab, move it to the appropriate team project immediately to ensure team visibility.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div className="flex gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100">
+                                    <div className="bg-orange-100 text-orange-700 p-2 rounded-lg h-fit">
+                                        <Icons.Trash2 size={20} />
+                                    </div>
+                                    <div>
+                                        <h4 className="font-bold text-sm mb-1">Archiving & Versioning</h4>
+                                        <p className="text-xs text-slate-600 leading-relaxed">
+                                            If you create an updated version of a course and the old version is no longer needed but you don't want to delete it, <strong>move the old version out of the Team folder</strong> back to your Private tab or an Archive folder to reduce team confusion.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
                         <div className="grid md:grid-cols-12 gap-8">
                             <div className="md:col-span-4 space-y-4">
                                 {steps.map((step, idx) => (
@@ -271,47 +314,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <section className="mt-12 bg-white rounded-2xl border border-slate-200 p-8 shadow-sm">
-                            <h3 className="text-lg font-bold mb-6 flex items-center gap-2">
-                                <Icons.Layout className="text-blue-600" /> Maintenance & Governance
-                            </h3>
-                            <div className="grid md:grid-cols-2 gap-6">
-                                <div className="flex gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100">
-                                    <div className="bg-blue-100 text-blue-700 p-2 rounded-lg h-fit">
-                                        <Icons.CheckCircle size={20} />
-                                    </div>
-                                    <div>
-                                        <h4 className="font-bold text-sm mb-1">Standard Workflow</h4>
-                                        <p className="text-xs text-slate-600 leading-relaxed">
-                                            Every time you create or work on a course, check that it is part of a <strong>Team folder</strong>. If it is sitting in your Private tab, move it to the appropriate team project immediately to ensure team visibility.
-                                        </p>
-                                    </div>
-                                </div>
-                                <div className="flex gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100">
-                                    <div className="bg-orange-100 text-orange-700 p-2 rounded-lg h-fit">
-                                        <Icons.Trash2 size={20} />
-                                    </div>
-                                    <div>
-                                        <h4 className="font-bold text-sm mb-1">Archiving & Versioning</h4>
-                                        <p className="text-xs text-slate-600 leading-relaxed">
-                                            If you create an updated version of a course and the old version is no longer needed but you don't want to delete it, <strong>move the old version out of the Team folder</strong> back to your Private tab or an Archive folder to reduce team confusion.
-                                        </p>
-                                    </div>
-                                </div>
-                                <div className="md:col-span-2 flex gap-4 p-4 rounded-xl bg-blue-50 border border-blue-100">
-                                    <div className="bg-blue-600 text-white p-2 rounded-lg h-fit">
-                                        <Icons.List size={20} />
-                                    </div>
-                                    <div>
-                                        <h4 className="font-bold text-sm mb-1">How to verify folder location</h4>
-                                        <p className="text-xs text-slate-600 leading-relaxed">
-                                            Switch your dashboard to <strong>List View</strong>. Hovering over the <strong>File Location</strong> column for any course should show <span className="font-bold text-blue-700">Team {'>'} [Folder Name]</span>. Only courses for strictly private use should remain as "Private".
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
                     </div>
                 </div>
             );
