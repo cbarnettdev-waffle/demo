@@ -12,6 +12,9 @@
     <!-- Babel for JSX transformation in browser -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <style>
+        html {
+            scroll-behavior: smooth;
+        }
         body {
             background-color: #f8fafc;
         }
@@ -23,7 +26,7 @@
     <script type="text/babel">
         const { useState } = React;
         
-        // Inline SVG Icons to prevent DOM manipulation conflicts with React
+        // Inline SVG Icons
         const Icons = {
             ChevronDown: () => <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>,
             ChevronRight: ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="m9 18 6-6-6-6"/></svg>,
@@ -38,7 +41,8 @@
             CheckCircle: ({ size = 14, className = "" }) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>,
             FolderInput: ({ size = 14, className = "" }) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M2 9V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H20a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-1"/><path d="M2 13h10"/><path d="m9 16 3-3-3-3"/></svg>,
             ArrowRight: ({ size = 14, className = "" }) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>,
-            Info: ({ size = 14, className = "" }) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+            Info: ({ size = 14, className = "" }) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>,
+            Bookmark: ({ size = 16, className = "" }) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
         };
 
         const StepVisualizer = ({ stepIndex }) => {
@@ -176,12 +180,12 @@
             const steps = [
                 {
                     title: "Navigate to the Team Space",
-                    description: "The Team space can be seen near the bottom of the left menu in Rise. Moving courses into Team folders makes it easy to share content across the team without needing to individually add users to every course. You can create new sub-folders for projects and share with the relevant project stakeholders.",
-                    action: "Hover over 'Team' (or a sub-folder) in the sidebar, click the three horizontal dots (•••), then click 'New Folder'."
+                    description: "The Team space can be seen near the bottom of the left menu in Rise. Moving courses into Team folders makes it easy to share content across the team without needing to individually add users to every course. Move your content into institutional folders for immediate visibility, or create new sub-folders for projects and share with the relevant project stakeholders.",
+                    action: "To create a new folder, hover over 'Team' (or an existing sub-folder) in the sidebar, click the three horizontal dots (•••), then click 'New Folder'."
                 },
                 {
                     title: "Set Team Folder Permissions",
-                    description: "Permissions are managed at the folder level. Managers can control the folder itself and edit or export courses in the folder, while Editors can edit the content of courses in the folder.",
+                    description: "Permissions are managed at the folder level and will apply to all courses in that folder. Managers can control the folder itself and edit or export courses in the folder, while Editors can edit the content of courses in the folder.",
                     action: "Click the (•••) next to your folder and select 'Folder share settings'. Then assign roles. ISTs and Media Specialists should be given Manager status."
                 },
                 {
@@ -193,25 +197,120 @@
             ];
 
             return (
-                <div className="min-h-screen bg-slate-50 p-4 md:p-8 font-sans text-slate-900">
-                    <div className="max-w-4xl mx-auto">
-                        <header className="mb-8">
-                            <div className="flex items-center gap-2 mb-2">
-                                <div className="bg-blue-600 p-2 rounded-lg text-white">
-                                    <Icons.Users size={24} />
-                                </div>
-                                <h1 className="text-2xl font-bold tracking-tight">Articulate Rise 360 Team Sharing Guide</h1>
+                <div className="min-h-screen bg-slate-50 font-sans text-slate-900 pb-20">
+                    {/* Fixed Table of Contents Header */}
+                    <nav className="fixed top-0 left-0 right-0 bg-white border-b border-slate-200 z-50 shadow-sm">
+                        <div className="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
+                            <div className="flex items-center gap-2 text-blue-600 font-bold text-sm">
+                                <Icons.Users size={18} /> <span className="hidden sm:inline">Rise 360 Guide</span>
                             </div>
-                            <p className="text-slate-600 font-medium">A standardized workflow for collaborative content management.</p>
+                            <div className="flex gap-6 md:gap-8">
+                                <a href="#sharing-workflow" className="text-[11px] md:text-xs font-bold text-slate-600 hover:text-blue-600 transition-colors uppercase tracking-wider flex items-center gap-2">
+                                    <Icons.Bookmark size={14} /> Team Folders
+                                </a>
+                                <a href="#maintenance-governance" className="text-[11px] md:text-xs font-bold text-slate-600 hover:text-blue-600 transition-colors uppercase tracking-wider flex items-center gap-2">
+                                    <Icons.CheckCircle size={14} /> Moving Forward
+                                </a>
+                            </div>
+                        </div>
+                    </nav>
+
+                    <div className="max-w-4xl mx-auto px-4 md:px-8">
+                        {/* Title Section with ample top margin to prevent overlap */}
+                        <header className="pt-28 mb-12">
+                            <div className="flex items-center gap-3 mb-3">
+                                <div className="bg-blue-600 p-2.5 rounded-xl text-white shadow-lg shadow-blue-200">
+                                    <Icons.Users size={28} />
+                                </div>
+                                <h1 className="text-3xl font-extrabold tracking-tight text-slate-900">Articulate Rise 360 Team Sharing Guide</h1>
+                            </div>
+                            <p className="text-slate-500 font-medium text-lg ml-1">Use this guide to learn how to share your Rise content to a Team folder. All Rise content used at our institutions should be shared to a Team folder going forward. Institutional Team folders will be set up and shared to the Team. You may add content at the Institution level, or create sub-folders for specific projects or programs. If in doubt, share to a parent folder!</p>
                         </header>
 
+                        <section id="sharing-workflow" className="scroll-mt-24 mb-16">
+                            <div className="flex items-center gap-3 mb-8">
+                                <div className="bg-blue-100 text-blue-600 p-2.5 rounded-xl">
+                                    <Icons.Layout size={22} />
+                                </div>
+                                <h3 className="text-2xl font-bold text-slate-800">Sharing To Team Folders</h3>
+                            </div>
+                            
+                            <div className="grid md:grid-cols-12 gap-8">
+                                <div className="md:col-span-4 space-y-4">
+                                    {steps.map((step, idx) => (
+                                        <button
+                                            key={idx}
+                                            onClick={() => setActiveStep(idx)}
+                                            className={`w-full flex items-center justify-between p-5 rounded-xl transition-all border-2 text-left group ${
+                                                activeStep === idx 
+                                                ? 'bg-white border-blue-600 shadow-lg ring-4 ring-blue-50' 
+                                                : 'bg-slate-100 border-transparent hover:bg-slate-200 text-slate-500'
+                                            }`}
+                                        >
+                                            <span className={`font-bold leading-snug flex-1 ${activeStep === idx ? 'text-slate-900' : 'text-slate-600'}`}>
+                                                {step.title}
+                                            </span>
+                                            <div className="ml-3 shrink-0">
+                                                <Icons.ChevronRight 
+                                                    className={activeStep === idx ? 'text-blue-600' : 'text-slate-400 group-hover:text-slate-500'} 
+                                                />
+                                            </div>
+                                        </button>
+                                    ))}
+                                </div>
 
-                        <section className="mt-12 bg-white rounded-2xl border border-slate-200 p-8 shadow-sm">
-                            <h3 className="text-lg font-bold mb-6 flex items-center gap-2">
-                                <Icons.Layout className="text-blue-600" /> Maintenance & Governance
-                            </h3>
-                            <div className="grid md:grid-cols-2 gap-6">
+                                <div className="md:col-span-8 bg-white rounded-2xl border border-slate-200 shadow-xl shadow-slate-200/50 overflow-hidden flex flex-col">
+                                    <div className="p-8">
+                                        <h2 className="text-2xl font-bold mb-5 text-blue-600 flex items-center gap-2">
+                                            {steps[activeStep].title}
+                                        </h2>
+                                        <p className="text-slate-700 mb-8 leading-relaxed text-base">
+                                            {steps[activeStep].description}
+                                        </p>
+                                        
+                                        <div className="mb-10">
+                                            <div className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-4">UI Visual Representation</div>
+                                            <StepVisualizer stepIndex={activeStep} />
+                                        </div>
 
+                                        <div className="space-y-5">
+                                            <div className="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                                                <div className="flex items-start gap-4">
+                                                    <div className="mt-1 bg-blue-600 text-white p-1.5 rounded-lg h-fit shadow-sm">
+                                                        <Icons.ArrowRight size={16} />
+                                                    </div>
+                                                    <div>
+                                                        <div className="text-sm font-bold text-slate-900 mb-1">Recommended Action:</div>
+                                                        <p className="text-sm text-slate-600 leading-relaxed">{steps[activeStep].action}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {steps[activeStep].limitation && (
+                                                <div className="p-5 bg-amber-50 rounded-xl border border-amber-200 shadow-sm">
+                                                    <div className="flex items-center gap-2 text-amber-800 font-bold text-xs mb-2 uppercase tracking-tight">
+                                                        <Icons.Info size={16} /> Technical Constraint
+                                                    </div>
+                                                    <p className="text-xs text-amber-800 leading-relaxed font-medium">
+                                                        {steps[activeStep].limitation}
+                                                    </p>
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        
+                        <section id="maintenance-governance" className="scroll-mt-24 bg-white rounded-3xl border border-slate-200 p-10 shadow-xl shadow-slate-200/50 mb-10">
+                            <div className="flex items-center gap-3 mb-8">
+                                <div className="bg-blue-100 text-blue-600 p-2.5 rounded-xl">
+                                    <Icons.CheckCircle size={22} />
+                                </div>
+                                <h3 className="text-2xl font-bold text-slate-800">Maintenance & Governance</h3>
+                            </div>
+
+                            <div className="grid md:grid-cols-2 gap-8">
                                 <div className="md:col-span-2 flex gap-4 p-4 rounded-xl bg-blue-50 border border-blue-100">
                                     <div className="bg-blue-600 text-white p-2 rounded-lg h-fit">
                                         <Icons.List size={20} />
@@ -223,23 +322,23 @@
                                         </p>
                                     </div>
                                 </div>
-                                <div className="flex gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100">
-                                    <div className="bg-blue-100 text-blue-700 p-2 rounded-lg h-fit">
-                                        <Icons.CheckCircle size={20} />
+                                <div className="flex gap-5 p-6 rounded-2xl bg-slate-50 border border-slate-200 group hover:border-blue-200 transition-colors">
+                                    <div className="bg-blue-100 text-blue-700 p-2.5 rounded-xl h-fit">
+                                        <Icons.CheckCircle size={24} />
                                     </div>
                                     <div>
-                                        <h4 className="font-bold text-sm mb-1">Standard Workflow</h4>
+                                        <h4 className="font-bold text-base mb-2 text-slate-900">Standard Workflow</h4>
                                         <p className="text-xs text-slate-600 leading-relaxed">
                                             Every time you create or work on a course, check that it is part of a <strong>Team folder</strong>. If it is sitting in your Private tab, move it to the appropriate team project immediately to ensure team visibility.
                                         </p>
                                     </div>
                                 </div>
-                                <div className="flex gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100">
-                                    <div className="bg-orange-100 text-orange-700 p-2 rounded-lg h-fit">
-                                        <Icons.Trash2 size={20} />
+                                <div className="flex gap-5 p-6 rounded-2xl bg-slate-50 border border-slate-200 group hover:border-orange-200 transition-colors">
+                                    <div className="bg-orange-100 text-orange-700 p-2.5 rounded-xl h-fit">
+                                        <Icons.Trash2 size={24} />
                                     </div>
                                     <div>
-                                        <h4 className="font-bold text-sm mb-1">Archiving & Versioning</h4>
+                                        <h4 className="font-bold text-base mb-2 text-slate-900">Archiving & Versioning</h4>
                                         <p className="text-xs text-slate-600 leading-relaxed">
                                             If you create an updated version of a course and the old version is no longer needed but you don't want to delete it, <strong>move the old version out of the Team folder</strong> back to your Private tab or an Archive folder to reduce team confusion.
                                         </p>
@@ -247,73 +346,6 @@
                                 </div>
                             </div>
                         </section>
-
-                        <div className="grid md:grid-cols-12 gap-8">
-                            <div className="md:col-span-4 space-y-4">
-                                {steps.map((step, idx) => (
-                                    <button
-                                        key={idx}
-                                        onClick={() => setActiveStep(idx)}
-                                        className={`w-full text-left p-4 rounded-xl transition-all border-2 ${
-                                            activeStep === idx 
-                                            ? 'bg-white border-blue-600 shadow-md ring-1 ring-blue-100' 
-                                            : 'bg-slate-100 border-transparent hover:bg-slate-200 text-slate-500'
-                                        }`}
-                                    >
-                                        <div className="flex items-center justify-between mb-1">
-                                            <span className={`text-[10px] font-bold uppercase tracking-wider ${activeStep === idx ? 'text-blue-600' : 'text-slate-400'}`}>
-                                                Step {idx + 1}
-                                            </span>
-                                            {activeStep === idx && <Icons.ChevronRight className="text-blue-600" />}
-                                        </div>
-                                        <div className={`font-bold leading-tight ${activeStep === idx ? 'text-slate-900' : 'text-slate-600'}`}>
-                                            {step.title}
-                                        </div>
-                                    </button>
-                                ))}
-                            </div>
-
-                            <div className="md:col-span-8 bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex flex-col">
-                                <div className="p-8">
-                                    <h2 className="text-xl font-bold mb-4 text-blue-600 flex items-center gap-2">
-                                        {steps[activeStep].title}
-                                    </h2>
-                                    <p className="text-slate-700 mb-6 leading-relaxed text-sm">
-                                        {steps[activeStep].description}
-                                    </p>
-                                    
-                                    <div className="mb-8">
-                                        <div className="text-xs font-bold text-slate-400 uppercase mb-3">UI Representation</div>
-                                        <StepVisualizer stepIndex={activeStep} />
-                                    </div>
-
-                                    <div className="space-y-4">
-                                        <div className="bg-slate-50 p-4 rounded-lg border border-slate-200">
-                                            <div className="flex items-start gap-3">
-                                                <div className="mt-1 bg-blue-100 text-blue-600 p-1 rounded h-fit">
-                                                    <Icons.ArrowRight size={14} />
-                                                </div>
-                                                <div>
-                                                    <div className="text-sm font-bold text-slate-900">Action:</div>
-                                                    <p className="text-sm text-slate-600">{steps[activeStep].action}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        {steps[activeStep].limitation && (
-                                            <div className="p-4 bg-amber-50 rounded-lg border border-amber-200">
-                                                <div className="flex items-center gap-2 text-amber-800 font-bold text-[11px] mb-1 uppercase tracking-tight">
-                                                    <Icons.Info size={14} /> Technical Limitation
-                                                </div>
-                                                <p className="text-xs text-amber-800 leading-relaxed">
-                                                    {steps[activeStep].limitation}
-                                                </p>
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             );
